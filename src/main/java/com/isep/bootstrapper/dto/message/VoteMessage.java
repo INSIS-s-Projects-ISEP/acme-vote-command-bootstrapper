@@ -1,6 +1,4 @@
-package com.isep.bootstrapper.event;
-
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
+package com.isep.bootstrapper.dto.message;
 
 import com.isep.bootstrapper.enumarate.VoteType;
 
@@ -12,12 +10,9 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TemporaryVoteCreated {
-
-    @TargetAggregateIdentifier
-    private Long temporaryVoteId;
+public class VoteMessage {
+    private Long voteId;
     private Long reviewId;
     private VoteType voteType;
     private String user;
-
 }

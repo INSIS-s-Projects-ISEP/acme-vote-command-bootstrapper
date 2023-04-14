@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VoteCreated {
+public class VoteCreatedEvent {
     
     @TargetAggregateIdentifier
     private Long voteId;

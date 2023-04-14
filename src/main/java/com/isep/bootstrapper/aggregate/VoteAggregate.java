@@ -7,8 +7,8 @@ import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import com.isep.bootstrapper.enumarate.VoteType;
-import com.isep.bootstrapper.event.VoteCreated;
-import com.isep.bootstrapper.event.VoteDeleted;
+import com.isep.bootstrapper.event.VoteCreatedEvent;
+import com.isep.bootstrapper.event.VoteDeletedEvent;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,12 +28,12 @@ public class VoteAggregate {
     private String user;
 
     @CommandHandler
-    public VoteAggregate(VoteCreated event){
+    public VoteAggregate(VoteCreatedEvent event){
         AggregateLifecycle.apply(event);
     }
     
     @EventSourcingHandler
-    public void on(VoteCreated event){
+    public void on(VoteCreatedEvent event){
         this.voteId = event.getVoteId();
         this.reviewId = event.getReviewId();
         this.voteType = event.getVoteType();
@@ -41,12 +41,12 @@ public class VoteAggregate {
     }
     
     @CommandHandler
-    public void handle(VoteDeleted event){
+    public void handle(VoteDeletedEvent event){
         AggregateLifecycle.apply(event);
     }
 
     @EventSourcingHandler
-    public void on(VoteDeleted event){
+    public void on(VoteDeletedEvent event){
         AggregateLifecycle.markDeleted();
     }
 

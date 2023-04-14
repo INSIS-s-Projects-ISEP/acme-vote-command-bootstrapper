@@ -47,39 +47,6 @@ public class RabbitmqConfig {
         return event -> rabbitAdmin.initialize();
     }
 
-    // Product Created
-    @Bean
-    public FanoutExchange productCreatedExchange() {
-        return new FanoutExchange("product.product-created");
-    }
-
-    @Bean
-    public Queue productCreatedQueue(String intanceId) {
-        return new Queue("product.product-created.review-command-bootstrapper." + intanceId, true, true, true);
-    }
-
-    @Bean
-    public Binding bindingProductCreatedtoProductCreated(FanoutExchange productCreatedExchange,
-            Queue productCreatedQueue) {
-        return BindingBuilder.bind(productCreatedQueue).to(productCreatedExchange);
-    }
-
-    // Product Deleted
-    @Bean
-    public FanoutExchange productDeletedExchange(){
-        return new FanoutExchange("product.product-deleted");
-    }
-
-    @Bean
-    public Queue productDeletedQueue(String instanceId){
-        return new Queue("product.product-deleted.review-command-bootstrapper." + instanceId, true, true, true);
-    }
-
-    @Bean
-    public Binding bindingProductDeletedtoProductDeleted(FanoutExchange productDeletedExchange, Queue productDeletedQueue){
-        return BindingBuilder.bind(productDeletedQueue).to(productDeletedExchange);
-    }
-
     // Review Created
     @Bean
     public FanoutExchange reviewCreatedExchange() {
@@ -88,7 +55,7 @@ public class RabbitmqConfig {
     
     @Bean
     public Queue reviewCreatedQueue(String intanceId) {
-        return new Queue("review.review-created.review-command-bootstrapper." + intanceId, true, true, true);
+        return new Queue("review.review-created.vote-command-bootstrapper." + intanceId, true, true, true);
     }
 
     @Bean
@@ -105,7 +72,7 @@ public class RabbitmqConfig {
     
     @Bean
     public Queue reviewUpdatedQueue(String intanceId) {
-        return new Queue("review.review-updated.review-command-bootstrapper." + intanceId, true, true, true);
+        return new Queue("review.review-updated.vote-command-bootstrapper." + intanceId, true, true, true);
     }
 
     @Bean
@@ -122,13 +89,45 @@ public class RabbitmqConfig {
     
     @Bean
     public Queue reviewDeletedQueue(String intanceId) {
-        return new Queue("review.review-deleted.review-command-bootstrapper." + intanceId, true, true, true);
+        return new Queue("review.review-deleted.vote-command-bootstrapper." + intanceId, true, true, true);
     }
 
     @Bean
     public Binding bindingReviewDeletedtoReviewDeleted(FanoutExchange reviewDeletedExchange,
             Queue reviewDeletedQueue) {
         return BindingBuilder.bind(reviewDeletedQueue).to(reviewDeletedExchange);
+    }
+
+    // Vote Created
+    @Bean
+    public FanoutExchange voteCreatedExchange() {
+        return new FanoutExchange("vote.vote-created");
+    }
+
+    @Bean
+    public Queue voteCreatedQueue(String instanceId){
+        return new Queue("vote.vote-created.vote-command-bootstrapper." + instanceId, true, true, true);
+    }
+
+    @Bean
+    public Binding bindingVoteCreatedToVoteCreated(FanoutExchange voteCreatedExchange, Queue voteCreatedQueue) {
+        return BindingBuilder.bind(voteCreatedQueue).to(voteCreatedExchange);
+    }
+
+    @Bean
+    public FanoutExchange voteDeletedExchange() {
+        return new FanoutExchange("vote.vote-deleted");
+    }
+
+    @Bean
+    public Queue voteDeletedQueue(String instanceId) {
+        return new Queue("vote.vote-deleted.vote-command-bootstrapper." + instanceId, true, true, true);
+    }
+
+    @Bean
+    public Binding bindingvoteDeletedtovoteDeleted(FanoutExchange voteDeletedExchange,
+            Queue voteDeletedQueue) {
+        return BindingBuilder.bind(voteDeletedQueue).to(voteDeletedExchange);
     }
 
     // SAGA
@@ -140,7 +139,7 @@ public class RabbitmqConfig {
 
     @Bean
     public Queue temporaryVoteCreatedQueue(String instanceId) {
-        return new Queue("temporary-vote.temporary-vote-created.review-command-bootstrapper", true, false, false);
+        return new Queue("temporary-vote.temporary-vote-created.vote-command-bootstrapper", true, false, false);
     }
 
     @Bean
@@ -149,53 +148,69 @@ public class RabbitmqConfig {
         return BindingBuilder.bind(temporaryVoteCreatedQueue).to(temporaryVoteCreatedExchange);
     }
 
-    // Direct exchange and a queue to receive review created for a temporary vote
+    // Exchange and a queue to receive a definite vote
     @Bean
-    public FanoutExchange reviewCreatedForTemporaryVoteExchange() {
-        return new FanoutExchange("review.review-created-for-temporary-vote");
+    public FanoutExchange definitiveVoteCreatedExchange() {
+        return new FanoutExchange("vote.definitive-vote-created");
     }
 
     @Bean
-    public Queue reviewCreatedForTemporaryVoteQueue(String instanceId) {
-        return new Queue("review.review-created-for-temporary-vote.review-command-bootstrapper." + instanceId, true, true, true);
+    public Queue definitiveVoteCreatedQueue(String instanceId) {
+        return new Queue("vote.definitive-vote-created.vote-command-bootstrapper." + instanceId, true, true, true);
     }
 
     @Bean
-    public Binding bindingReviewCreatedForTemporaryVoteToReviewCreatedForTemporaryVote(FanoutExchange reviewCreatedForTemporaryVoteExchange,
-            Queue reviewCreatedForTemporaryVoteQueue) {
-        return BindingBuilder.bind(reviewCreatedForTemporaryVoteQueue).to(reviewCreatedForTemporaryVoteExchange);
+    public Binding bindingDefinitiveVoteCreatedToDefinitiveVoteCreated(FanoutExchange definitiveVoteCreatedExchange,
+            Queue definitiveVoteCreatedQueue) {
+        return BindingBuilder.bind(definitiveVoteCreatedQueue).to(definitiveVoteCreatedExchange);
     }
 
     // Bootstrapper
-    // Product
-    @Bean
-    public FanoutExchange rpcProductExchange(){
-        return new FanoutExchange("rpc.product.review-command-bootstrapper");
-    }
-
-    @Bean
-    public Queue rpcProductQueue(){
-        return new Queue("rpc.product.review-command-bootstrapper", true, false, false);
-    }
-
-    @Bean
-    public Binding bindRpcProduct(FanoutExchange rpcProductExchange, Queue rpcProductQueue){
-        return BindingBuilder.bind(rpcProductQueue).to(rpcProductExchange);
-    }
-
     // Review
     @Bean
     public FanoutExchange rpcReviewExchange(){
-        return new FanoutExchange("rpc.review.review-command-bootstrapper");
+        return new FanoutExchange("rpc.review.vote-command-bootstrapper");
     }
 
     @Bean
     public Queue rpcReviewQueue(){
-        return new Queue("rpc.review.review-command-bootstrapper", true, false, false);
+        return new Queue("rpc.review.vote-command-bootstrapper", true, false, false);
     }
 
     @Bean
     public Binding bindRpcReview(FanoutExchange rpcReviewExchange, Queue rpcReviewQueue){
         return BindingBuilder.bind(rpcReviewQueue).to(rpcReviewExchange);
+    }
+
+    // Vote
+    @Bean
+    public FanoutExchange rpcVoteExchange(){
+        return new FanoutExchange("rpc.vote.vote-command-bootstrapper");
+    }
+
+    @Bean
+    public Queue rpcVoteQueue(){
+        return new Queue("rpc.vote.vote-command-bootstrapper", true, false, false);
+    }
+
+    @Bean
+    public Binding bindRpcVote(FanoutExchange rpcVoteExchange, Queue rpcVoteQueue){
+        return BindingBuilder.bind(rpcVoteQueue).to(rpcVoteExchange);
+    }
+
+    // Temporary Vote
+    @Bean
+    public FanoutExchange rpcTemporaryVoteExchange(){
+        return new FanoutExchange("rpc.temporary-vote.vote-command-bootstrapper");
+    }
+
+    @Bean
+    public Queue rpcTemporaryVoteQueue(){
+        return new Queue("rpc.temporary-vote.vote-command-bootstrapper", true, false, false);
+    }
+
+    @Bean
+    public Binding bindRpcTemporaryVote(FanoutExchange rpcTemporaryVoteExchange, Queue rpcTemporaryVoteQueue){
+        return BindingBuilder.bind(rpcTemporaryVoteQueue).to(rpcTemporaryVoteExchange);
     }
 }
