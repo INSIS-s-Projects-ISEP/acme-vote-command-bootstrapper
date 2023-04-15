@@ -47,57 +47,6 @@ public class RabbitmqConfig {
         return event -> rabbitAdmin.initialize();
     }
 
-    // Review Created
-    @Bean
-    public FanoutExchange reviewCreatedExchange() {
-        return new FanoutExchange("review.review-created");
-    }
-    
-    @Bean
-    public Queue reviewCreatedQueue(String intanceId) {
-        return new Queue("review.review-created.vote-command-bootstrapper." + intanceId, true, true, true);
-    }
-
-    @Bean
-    public Binding bindingReviewCreatedtoReviewCreated(FanoutExchange reviewCreatedExchange,
-            Queue reviewCreatedQueue) {
-        return BindingBuilder.bind(reviewCreatedQueue).to(reviewCreatedExchange);
-    }
-
-    // Review Updated
-    @Bean
-    public FanoutExchange reviewUpdatedExchange() {
-        return new FanoutExchange("review.review-updated");
-    }
-    
-    @Bean
-    public Queue reviewUpdatedQueue(String intanceId) {
-        return new Queue("review.review-updated.vote-command-bootstrapper." + intanceId, true, true, true);
-    }
-
-    @Bean
-    public Binding bindingReviewUpdatedtoReviewUpdated(FanoutExchange reviewUpdatedExchange,
-            Queue reviewUpdatedQueue) {
-        return BindingBuilder.bind(reviewUpdatedQueue).to(reviewUpdatedExchange);
-    }
-
-    // Review Deleted
-    @Bean
-    public FanoutExchange reviewDeletedExchange() {
-        return new FanoutExchange("review.review-deleted");
-    }
-    
-    @Bean
-    public Queue reviewDeletedQueue(String intanceId) {
-        return new Queue("review.review-deleted.vote-command-bootstrapper." + intanceId, true, true, true);
-    }
-
-    @Bean
-    public Binding bindingReviewDeletedtoReviewDeleted(FanoutExchange reviewDeletedExchange,
-            Queue reviewDeletedQueue) {
-        return BindingBuilder.bind(reviewDeletedQueue).to(reviewDeletedExchange);
-    }
-
     // Vote Created
     @Bean
     public FanoutExchange voteCreatedExchange() {
@@ -105,8 +54,8 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    public Queue voteCreatedQueue(String instanceId){
-        return new Queue("vote.vote-created.vote-command-bootstrapper." + instanceId, true, true, true);
+    public Queue voteCreatedQueue(){
+        return new Queue("vote.vote-created.vote-command-bootstrapper");
     }
 
     @Bean
@@ -114,14 +63,15 @@ public class RabbitmqConfig {
         return BindingBuilder.bind(voteCreatedQueue).to(voteCreatedExchange);
     }
 
+    // Vote Deleted
     @Bean
     public FanoutExchange voteDeletedExchange() {
         return new FanoutExchange("vote.vote-deleted");
     }
 
     @Bean
-    public Queue voteDeletedQueue(String instanceId) {
-        return new Queue("vote.vote-deleted.vote-command-bootstrapper." + instanceId, true, true, true);
+    public Queue voteDeletedQueue() {
+        return new Queue("vote.vote-deleted.vote-command-bootstrapper");
     }
 
     @Bean
@@ -138,8 +88,8 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    public Queue temporaryVoteCreatedQueue(String instanceId) {
-        return new Queue("temporary-vote.temporary-vote-created.vote-command-bootstrapper", true, false, false);
+    public Queue temporaryVoteCreatedQueue() {
+        return new Queue("temporary-vote.temporary-vote-created.vote-command-bootstrapper");
     }
 
     @Bean
@@ -155,8 +105,8 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    public Queue definitiveVoteCreatedQueue(String instanceId) {
-        return new Queue("vote.definitive-vote-created.vote-command-bootstrapper." + instanceId, true, true, true);
+    public Queue definitiveVoteCreatedQueue() {
+        return new Queue("vote.definitive-vote-created.vote-command-bootstrapper");
     }
 
     @Bean
@@ -174,7 +124,7 @@ public class RabbitmqConfig {
 
     @Bean
     public Queue rpcReviewQueue(){
-        return new Queue("rpc.review.vote-command-bootstrapper", true, false, false);
+        return new Queue("rpc.review.vote-command-bootstrapper");
     }
 
     @Bean
@@ -190,7 +140,7 @@ public class RabbitmqConfig {
 
     @Bean
     public Queue rpcVoteQueue(){
-        return new Queue("rpc.vote.vote-command-bootstrapper", true, false, false);
+        return new Queue("rpc.vote.vote-command-bootstrapper");
     }
 
     @Bean
@@ -206,7 +156,7 @@ public class RabbitmqConfig {
 
     @Bean
     public Queue rpcTemporaryVoteQueue(){
-        return new Queue("rpc.temporary-vote.vote-command-bootstrapper", true, false, false);
+        return new Queue("rpc.temporary-vote.vote-command-bootstrapper");
     }
 
     @Bean
