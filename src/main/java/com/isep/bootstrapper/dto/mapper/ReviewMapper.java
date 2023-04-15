@@ -22,7 +22,7 @@ public class ReviewMapper {
 
     public Review toEntity(ReviewMessage reviewMessage){
         return new Review(
-            reviewMessage.getIdReview(),
+            reviewMessage.getReviewId(),
             reviewMessage.getApprovalStatus()
         );
     }

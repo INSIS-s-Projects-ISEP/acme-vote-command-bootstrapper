@@ -38,7 +38,7 @@ public class TemporaryVoteMapper {
     public TemporaryVoteMessage toMessage(TemporaryVote temporaryVote){
         return new TemporaryVoteMessage(
             temporaryVote.getTemporaryVoteId(),
-            temporaryVote.getUser(),
+            temporaryVote.getUserr(),
             temporaryVote.getVoteType()
         );
     }

@@ -1,5 +1,7 @@
 package com.isep.bootstrapper.model;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,7 +23,7 @@ import lombok.Setter;
 public class Vote {
 
     @Id
-    private Long voteId;
+    private UUID voteId;
 
     @ManyToOne
     @JoinColumn(name = "fk_review", nullable = false)
@@ -29,6 +31,6 @@ public class Vote {
 
     @Enumerated(EnumType.STRING)
     private VoteType voteType;
-    private String user;
+    private String userr;
 
 }

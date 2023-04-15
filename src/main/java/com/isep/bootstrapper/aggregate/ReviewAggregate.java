@@ -1,5 +1,7 @@
 package com.isep.bootstrapper.aggregate;
 
+import java.util.UUID;
+
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -23,7 +25,7 @@ import lombok.Setter;
 public class ReviewAggregate {
     
     @AggregateIdentifier
-    private Long reviewId;
+    private UUID reviewId;
     private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
 
     @CommandHandler

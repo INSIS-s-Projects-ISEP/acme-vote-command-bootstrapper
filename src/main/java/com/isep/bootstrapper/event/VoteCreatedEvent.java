@@ -1,5 +1,7 @@
 package com.isep.bootstrapper.event;
 
+import java.util.UUID;
+
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import com.isep.bootstrapper.enumarate.VoteType;
@@ -15,8 +17,8 @@ import lombok.Setter;
 public class VoteCreatedEvent {
     
     @TargetAggregateIdentifier
-    private Long voteId;
-    private Long reviewId;
+    private UUID voteId;
+    private UUID reviewId;
     private VoteType voteType;
     private String user;
     

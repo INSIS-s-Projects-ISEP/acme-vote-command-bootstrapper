@@ -2,6 +2,7 @@ package com.isep.bootstrapper.messaging;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -61,7 +62,7 @@ public class ReviewConsumer {
     }
 
     @RabbitListener(queues = "#{reviewDeletedQueue.name}", ackMode = "MANUAL")
-    public void reviewDeleted(Long reviewId, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException{
+    public void reviewDeleted(UUID reviewId, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException{
 
         log.info("Review deleted received: " + reviewId);
         try {

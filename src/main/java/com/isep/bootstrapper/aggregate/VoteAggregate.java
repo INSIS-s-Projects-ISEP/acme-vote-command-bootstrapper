@@ -1,5 +1,7 @@
 package com.isep.bootstrapper.aggregate;
 
+import java.util.UUID;
+
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -22,8 +24,8 @@ import lombok.Setter;
 public class VoteAggregate {
 
     @AggregateIdentifier
-    private Long voteId;
-    private Long reviewId;
+    private UUID voteId;
+    private UUID reviewId;
     private VoteType voteType;
     private String user;
 

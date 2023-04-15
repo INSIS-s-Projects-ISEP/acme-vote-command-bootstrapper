@@ -19,12 +19,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TemporaryVote {
-    
+
     @Id
     private UUID temporaryVoteId;
-    
+
     @Enumerated(EnumType.STRING)
     private VoteType voteType;
-    private String user;
-    
+    private String userr;
+
 }

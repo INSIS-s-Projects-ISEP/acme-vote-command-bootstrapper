@@ -25,7 +25,7 @@ public class VoteMapper {
             vote.getVoteId(),
             vote.getReview().getReviewId(),
             vote.getVoteType(),
-            vote.getUser()
+            vote.getUserr()
         );
     }
 

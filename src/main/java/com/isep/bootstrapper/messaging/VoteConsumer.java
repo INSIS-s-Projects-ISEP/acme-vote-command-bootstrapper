@@ -2,6 +2,7 @@ package com.isep.bootstrapper.messaging;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -45,7 +46,7 @@ public class VoteConsumer {
     }
 
     @RabbitListener(queues = "#{voteDeletedQueue.name}", ackMode = "MANUAL")
-    public void voteDeleted(Long voteId, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException{
+    public void voteDeleted(UUID voteId, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException{
 
         log.info("Vote deleted received: " + voteId);
         try {

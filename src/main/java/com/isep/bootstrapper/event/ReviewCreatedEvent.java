@@ -1,6 +1,7 @@
 package com.isep.bootstrapper.event;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
@@ -23,7 +24,7 @@ import lombok.ToString;
 public class ReviewCreatedEvent {
 
     @TargetAggregateIdentifier
-    private Long reviewId;
+    private UUID reviewId;
     private ApprovalStatus approvalStatus;
     private String reviewText;
     private String report;

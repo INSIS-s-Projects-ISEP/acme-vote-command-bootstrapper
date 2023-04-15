@@ -1,5 +1,7 @@
 package com.isep.bootstrapper.dto.message;
 
+import java.util.UUID;
+
 import com.isep.bootstrapper.enumarate.ApprovalStatus;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReviewMessage {
 
-    private Long idReview;
+    private UUID reviewId;
     private ApprovalStatus approvalStatus;
 
 }
