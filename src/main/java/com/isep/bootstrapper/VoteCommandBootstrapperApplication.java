@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReviewCommandBootstrapperApplication {
+public class VoteCommandBootstrapperApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReviewCommandBootstrapperApplication.class, args);
+		SpringApplication.run(VoteCommandBootstrapperApplication.class, args);
 	}
 
 }
